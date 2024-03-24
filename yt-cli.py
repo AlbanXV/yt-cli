@@ -1,5 +1,6 @@
 import os
 from pytube import YouTube
+from pytube.cli import on_progress
 from moviepy.editor import VideoFileClip
 from termcolor import colored, cprint
 
@@ -56,7 +57,7 @@ def download_video(url):
     create_dir()
 
     try:
-        yt = YouTube(url)
+        yt = YouTube(url, on_progress_callback=on_progress)
         stream = yt.streams.get_highest_resolution()
         filename = stream.default_filename
         video_path = os.path.join("downloads", filename)
