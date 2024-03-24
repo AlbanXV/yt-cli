@@ -60,11 +60,13 @@ def download_video(url):
         stream = yt.streams.get_highest_resolution()
         filename = stream.default_filename
         video_path = os.path.join("downloads", filename)
+
+        print(colored(f"Downloading: {filename}..\n", "yellow"))
         stream.download(output_path="downloads", filename=filename)
 
         print(colored(f"Successfully downloaded: {filename}", "light_green"))
 
-        mp3 = input("Convert video(s) to MP3? Y/N:")
+        mp3 = input("\nConvert video(s) to MP3? Y/N:")
         if mp3.lower() == "y":
             convert_to_mp3(video_path)
 
