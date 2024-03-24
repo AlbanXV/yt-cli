@@ -1,4 +1,4 @@
-# Youtube Client (yt-cli)
+# Youtube Downloader Client (yt-cli)
 
 ![image](https://github.com/AlbanXV/yt-cli/assets/61944761/f6d50295-acaf-40c1-9c9c-dafe3d73c6cb)
 
