@@ -27,7 +27,7 @@ def download_videos(urls):
     for url in urls:
         video_path = download_video(url)
 
-def convert_video(file):
+def convert_to_mp3(file):
     ...
 
 def main():
