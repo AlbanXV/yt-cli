@@ -42,12 +42,13 @@ def delete_video(filename):
     except Exception as e:
         print(colored(f"Error deleting MP4 file: {str(e)}", "red"))
 
-def download_video(url):
+def download_video(url, choice):
     """
     Downloads specific video from a youtube URL.
 
     args:
         - url (str) : url-string from a youtube link
+        - choice (bool) : Boolean value
     
     returns:
         - video_path (str)
@@ -58,14 +59,34 @@ def download_video(url):
 
     try:
         yt = YouTube(url, on_progress_callback=on_progress)
-        stream = yt.streams.get_highest_resolution()
-        filename = stream.default_filename
-        video_path = os.path.join("downloads", filename)
 
-        print(colored(f"Downloading: {filename}..\n", "yellow"))
-        stream.download(output_path="downloads", filename=filename)
+        match choice:
+            case False:
+                stream = yt.streams.get_highest_resolution()
+                filename = stream.default_filename
+                video_path = os.path.join("downloads", filename)
 
-        print(colored(f"Successfully downloaded: {filename}", "light_green"))
+                print(colored(f"Downloading: {filename}..\n", "yellow"))
+                stream.download(output_path="downloads", filename=filename)
+
+                print(colored(f"Successfully downloaded: {filename}", "light_green"))
+            
+            case True:
+                available_streams = yt.streams.filter(progressive=True, file_extension="mp4").order_by('resolution').desc()
+                print(colored("Available video qualities:\n", "cyan"))
+                for i, j in enumerate(available_streams, 1):
+                    print(f"{i}. Quality: {j.resolution}, Type: {j.mime_type}, Size: {format_file_size(j.filesize)}")
+                
+                quality_choice = int(input("\nEnter number corresponding to desired video quality:")) - 1
+                selected_stream = available_streams[quality_choice]
+
+                filename = selected_stream.default_filename
+                video_path = os.path.join("downloads", filename)
+
+                print(colored(f"\nDownloading: {filename}..\n", "yellow"))
+                selected_stream.download(output_path="downloads", filename=filename)
+
+                print(colored(f"Successfully downloaded: {filename}", "light_green"))
 
         mp3 = input("\nConvert video(s) to MP3? Y/N:")
         if mp3.lower() == "y":
@@ -75,12 +96,13 @@ def download_video(url):
     except Exception as e:
         print(colored(f"Error downloading video from {url}: {str(e)}", "red"))
 
-def download_videos(urls):
+def download_videos(urls, choice):
     """
     Downloads multiple videos by calling the download_video() function
 
     args:
         - urls (list) : list containing youtube url-strings
+        - choice (bool) : Boolean value
     
     returns:
         - None
@@ -88,7 +110,7 @@ def download_videos(urls):
     """
 
     for url in urls:
-        video_path = download_video(url)
+        video_path = download_video(url, choice)
 
 def convert_to_mp3(filename):
     """
@@ -118,16 +140,63 @@ def convert_to_mp3(filename):
     except Exception as e:
         print(colored(f"Error converting to MP3: {str(e)}", "red"))
 
-def main():
-    links = []
+def format_file_size(size):
+    """
+    Function to calculate video size in bytes.
 
-    print(colored("\n---------- yt-cli: Download youtube video(s) ----------", "cyan"))
+    args:
+        - size : Size of video
+    
+    returns:
+        - None
+    
+    """
+
+    if size < 1024:
+        return f"{size} bytes"
+    elif size < 1024*1024:
+        return f"{size / 1024:.2f} KB"
+    else:
+        return f"{size / (1024*1024):.2f} MB"
+
+
+def yt_cli(choice):
+    """
+    The terminal client to enter youtube URL(s).
+
+    args:
+        - choice (bool) : Boolean value
+    
+    returns:
+        - None
+    
+    """
+
+    links = []
+    counter = 0
     while True:
-        url = input("\nEnter Youtube URL(s) (Press Enter to stop adding URLs):\n")
+        print(colored("\nEnter Youtube URL(s) (Press Enter to stop adding URLs):\n", "cyan"))
+        url = input()
         if url.strip() == "":
             break
         links.append(url)
-    download_videos(links)
+        counter += 1
+        print(colored(f"URL link(s) added: {counter}"))
+    download_videos(links, choice)
+
+def main():
+
+    print(colored("\n---------- yt-cli: Download youtube video(s) ----------", "cyan"))
+
+    choice = input("\nChoose mode: \n1 : Download in highest quality\n2 : Download manually (choose quality)\nInput: ").lower()
+    quality = False
+
+    match choice:
+        case "1":
+            yt_cli(quality)
+        case "2":
+            quality = True
+            yt_cli(quality)
     
 
 if __name__ == "__main__":
