@@ -1,7 +1,7 @@
 # Youtube Downloader Client (yt-cli)
 
-![image](https://github.com/AlbanXV/yt-cli/assets/61944761/f6d50295-acaf-40c1-9c9c-dafe3d73c6cb)
 ![image](https://github.com/AlbanXV/yt-cli/assets/61944761/50ca5c5e-5a57-4a8d-aaff-88e1154ae1da)
+![image](https://github.com/AlbanXV/yt-cli/assets/61944761/f6d50295-acaf-40c1-9c9c-dafe3d73c6cb)
 
 Download youtube videos to MP4 using the python library 'pytube', and also convert them to MP3 if desired.
 
