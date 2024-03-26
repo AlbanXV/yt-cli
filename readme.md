@@ -15,7 +15,7 @@ or manually:
 py -m pip install [...]
 ```
 ## Usage
-To run the code, simply type:
+To run the code, simply enter:
 ```
 py yt-cli.py
 ```
