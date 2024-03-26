@@ -52,6 +52,7 @@ def download_video(url, choice):
 
         mp3 = input("\nConvert video(s) to MP3? Y/N:")
         if mp3.lower() == "y":
+            clear()
             convert_to_mp3(video_path)
 
         return video_path

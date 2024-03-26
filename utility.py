@@ -1,4 +1,5 @@
 import os
+from os import system, name
 from termcolor import colored
 
 ## -- Utility -- ##
@@ -58,3 +59,19 @@ def format_file_size(size):
         return f"{size / 1024:.2f} KB"
     else:
         return f"{size / (1024*1024):.2f} MB"
+    
+def clear():
+    """
+    Function to clear terminal screen prints.
+
+    args:
+        - None
+    
+    returns:
+        - None
+    
+    """
+    if name == 'nt':
+        _ = system('cls')
+    else:
+        _ = system('clear')
