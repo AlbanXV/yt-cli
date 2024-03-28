@@ -5,7 +5,9 @@ Download youtube videos to MP4 using the python library 'pytube', and also conve
 ![image](https://github.com/AlbanXV/yt-cli/assets/61944761/f6d50295-acaf-40c1-9c9c-dafe3d73c6cb)
 
 ## Demonstration
-![gif](https://github.com/AlbanXV/yt-cli/assets/61944761/d4ac5b8d-3bd7-41fb-883c-482b19b37bae)
+![ezgif-3-0d0c8904be](https://github.com/AlbanXV/yt-cli/assets/61944761/c38917ed-fdcd-4e11-b177-5f7cfbeda350)
+
+<!--- ![gif](https://github.com/AlbanXV/yt-cli/assets/61944761/d4ac5b8d-3bd7-41fb-883c-482b19b37bae) -->
 
 
 ## Installation and versions of dependencies
